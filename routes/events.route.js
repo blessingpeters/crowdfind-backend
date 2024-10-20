@@ -1,6 +1,15 @@
-const express = require("express")
-const { createEvent } = require("../controllers/event.controller")
-const router = express.Router()
+const express = require('express');
+//const { createEvent, getAllEvents, showInterest } = require('../controllers/event.controller');
+const { authMiddleware } = require('../middleware/auth');
+const router = express.Router();
 
-router.get("/", createEvent)
-module.exports = router
+// Admin creates an event
+router.post('/create', createEvent);
+
+// User views all events
+router.get('/', getAllEvents);
+
+// User shows interest in an event
+router.post('/:eventId/interest', authMiddleware, showInterest);
+
+module.exports = router;
