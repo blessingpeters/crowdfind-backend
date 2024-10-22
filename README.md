@@ -10,20 +10,21 @@ base_url: https://crowfind-backend.onrender.com
 ###  Return Codes
 | Status Code | Description |
 | :--- | :--- |
-| 200 | `OK` |
-| 201 | `CREATED` |
-| 400 | `BAD REQUEST` |
-| 401 | `UNAUTHORIZED` |
-| 404 | `NOT FOUND` |
-| 500 | `INTERNAL SERVER ERROR` |
+| 200 | OK |
+| 201 | CREATED |
+| 400 | BAD REQUEST` |
+| 401 | UNAUTHORIZED |
+| 404 | NOT FOUND |
+| 500 | INTERNAL SERVER ERROR |
 
 ## Authentication
 ### 1. Register User
 Register a new user to access authenticated routes.
-Endpoint: `/api/auth/register`
-Method: `POST`
-URL: `base_url/api/auth/register`
-Headers:
+
+- Endpoint: `/api/auth/register`
+- Method: `POST`
+- URL: `base_url/api/auth/register`
+- Headers:
 `Content-Type: application/json`
 
 #### Request Body:
@@ -40,10 +41,14 @@ Headers:
 
 ### 2. Login User
 Authenticate a user and obtain a JWT token for authorized requests.
-Endpoint: `/api/auth/login`
-Method: `POST`
-URL: `base_url/api/auth/login`
-Headers:
+
+- Endpoint: `/api/auth/login`
+
+- Method: `POST`
+
+-  URL: `base_url/api/auth/login`
+
+- Headers:
 `Content-Type: application/json`
 
 #### Request Body:
@@ -63,10 +68,14 @@ Headers:
 ## Events
 ### 1. Create Event: For Admin
 Admin-only endpoint to create a new event.
+
 - Endpoint: `/api/event/create`
+
 - Method: `POST`
-URL: `base_url/api/event/create`
-Headers:
+
+- URL: `base_url/api/event/create`
+
+- Headers:
     `Content-Type: application/json`
 
 #### Request Body:
@@ -93,10 +102,14 @@ Headers:
 
 ### 2. Get All Events
 Retrieve a list of all events.
-Endpoint: `api/event/`
-Method: `GET`
-URL: `base_url/api/event/`
-Headers: `(None required)`
+
+- Endpoint: `api/event/`
+
+- Method: `GET`
+
+- URL: `base_url/api/event/`
+
+- Headers: `(None required)`
 
 #### Sample Response:
 ```JSON
@@ -123,10 +136,14 @@ Headers: `(None required)`
 
 ### 3. Indicate Interest in an Event
 Allow a user to express interest in a specific event.
-Endpoint: `/event/{eventId}/interest`
-Method: `POST`
-URL: `base_url/api/event/:eventId/interest`
-Headers:
+
+- Endpoint: `/event/{eventId}/interest`
+
+- Method: `POST`
+
+- URL: `base_url/api/event/:eventId/interest`
+
+- Headers:
 `Content-Type: application/json`
 `Authorization: your token`
 
@@ -143,9 +160,12 @@ eg: POST 'https://crowdfind-backend.onrender.com/api/event/671793d96f5288a0eb35c
 
 ### 4. User's Interested Events
 Retrieve all events in which the authenticated user has expressed interest.
-Method: `GET`
-URL: `base_url/api/auth/interested-events`
-Headers:
+
+- Method: `GET`
+
+- URL: `base_url/api/auth/interested-events`
+
+- Headers:
 `Authorization: your token`
 
 #### Sample Response:
