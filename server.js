@@ -27,6 +27,14 @@ app.get("/user", function (req, res) {
   res.status(200).json("local 3000");
 });
 
+app.get("/", (req, res) => {
+    res.send("Welcome to Crowd Find API");
+  });
+
+  app.all("/", (req, res) => {
+    res.status(405).send({ error: "Method Not Allowed" });
+  });
+
 app.listen(PORT, function () {
   console.log(`server started at ${PORT}`);
 });
