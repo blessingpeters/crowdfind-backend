@@ -1,19 +1,32 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const mongoose = require("mongoose")
-const eventRouter = require("./routes/events.route")
+require("dotenv").config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const eventRouter = require("./routes/events.route");
+const authRouter = require("./routes/auth.route");
+const port = 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-
-const port = 3000
-const app = express()
+mongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err.message);
+    process.exit(1);
+  });
 
 app.use(express.json());
-app.use("/event", eventRouter);
+app.use("/api/event", eventRouter);
+app.use("/api/auth", authRouter);
 
-app.get("/", function(req, res){
-    res.status(200).json("local 3000")
-})
+app.get("/user", function (req, res) {
+  res.status(200).json("local 3000");
+});
 
-app.listen(port, function(){
-    console.log(`server started at ${port}`)
-})
+app.listen(PORT, function () {
+  console.log(`server started at ${PORT}`);
+});
