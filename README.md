@@ -5,7 +5,8 @@
 # API Documentation
 Welcome to the Crowd Find API documentation. This API allows users to register, authenticate, view events, indicate interest in events, and retrieve events they are interested in.
 The API follows RESTful principles and uses JSON for data interchange.
-base_url: https://crowfind-backend.onrender.com
+
+- base_url: https://crowfind-backend.onrender.com
 
 ###  Return Codes
 | Status Code | Description |
