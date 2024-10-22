@@ -1,4 +1,4 @@
-# crowfind-backend
+# crowdfind-backend
 ### CrowdFind that allows users to view, search for, and indicate interest in events
 
 
@@ -6,7 +6,7 @@
 Welcome to the Crowd Find API documentation. This API allows users to register, authenticate, view events, indicate interest in events, and retrieve events they are interested in.
 The API follows RESTful principles and uses JSON for data interchange.
 
-- base_url: https://crowfind-backend.onrender.com
+- base_url: https://crowdfind-backend.onrender.com
 
 ###  Return Codes
 | Status Code | Description |
