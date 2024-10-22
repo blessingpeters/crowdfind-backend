@@ -38,7 +38,7 @@ const showInterest = async (req, res) => {
       await event.save();
     }
 
-    res.json({ message: "Interest noted" });
+    res.json({ message: "Event has been Booked Successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

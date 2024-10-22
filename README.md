@@ -13,7 +13,7 @@ The API follows RESTful principles and uses JSON for data interchange.
 | :--- | :--- |
 | 200 | OK |
 | 201 | CREATED |
-| 400 | BAD REQUEST` |
+| 400 | BAD REQUEST |
 | 401 | UNAUTHORIZED |
 | 404 | NOT FOUND |
 | 500 | INTERNAL SERVER ERROR |
@@ -154,7 +154,7 @@ eg: POST 'https://crowdfind-backend.onrender.com/api/event/671793d96f5288a0eb35c
 
 #### Sample Response:
 ```JSON
-{ "message": "Interest noted"}
+{ "message": "Event has been Booked Successfully"}
 ```
 
 
