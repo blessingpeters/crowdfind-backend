@@ -99,22 +99,23 @@ Admin-only endpoint to create a new event.
 
 #### Sample Response:
 ```JSON
-{
-  "title": "Python for Beginners",
-  "description": "A beginner-friendly introduction to Python, focusing on real-world applications and hands-on exercises.",
-  "hostname": "CodeLab Academy",
-  "date": "2024-10-30T17:00:00.000Z",
-  "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675549/Python_for_Beginners_qi0spd.jpg",
-  "tags": [
-    "Programming",
-    "Python",
-    "Coding"
-  ],
-  "_id": "671942181ba408056896c21c",
-  "attendees": [],
-  "createdAt": "2024-10-23T18:36:08.661Z",
-  "updatedAt": "2024-10-23T18:36:08.661Z",
-  "__v": 0
+"message": "Event created successfully",
+"event": {
+    "title": "Outdoor Art and Music Festival",
+    "hostname": "Port Harcourt Arts Collective",
+    "description": "A lively outdoor festival celebrating local art and music, with performances, exhibitions, and workshops.",
+    "date": "2024-10-26T15:00:00.000Z",
+    "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675537/Outdoor_Art_and_Music_Festival_cmoyuq.jpg",
+    "tags": [
+        "Art",
+        "Music",
+        "Festival"
+    ],
+    "_id": "67197cfce2af323b505b954d",
+    "attendees": [],
+    "createdAt": "2024-10-23T22:47:24.964Z",
+    "updatedAt": "2024-10-23T22:47:24.964Z",
+    "__v": 0
 }
 ```
 
