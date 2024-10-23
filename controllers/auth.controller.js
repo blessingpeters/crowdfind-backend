@@ -34,7 +34,11 @@ exports.login = async (req, res) => {
 // Get User's Interested Events
 exports.getInterestedEvents = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).populate('interestedEvents');
+        const user = await User.findById(req.user.id)
+            .populate({
+                path: 'interestedEvents.event',
+                select: 'title hostname description date img tags'
+            });
         res.json(user.interestedEvents);
     } catch (err) {
         res.status(500).json({ error: err.message });

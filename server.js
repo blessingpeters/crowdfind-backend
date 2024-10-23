@@ -6,7 +6,7 @@ const eventRouter = require("./routes/events.route");
 const authRouter = require("./routes/auth.route");
 const port = 3000;
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || port;
 
 mongoose
   .connect(process.env.DB_URI, {
@@ -25,18 +25,16 @@ app.use(express.json());
 app.use("/api/event", eventRouter);
 app.use("/api/auth", authRouter);
 
-app.get("/user", function (req, res) {
-  res.status(200).json("local 3000");
-});
-
+// Welcome Route
 app.get("/", (req, res) => {
     res.send("Welcome to Crowd Find API");
   });
 
-app.all("/", (req, res) => {
+app.all("*", (req, res) => {
 res.status(405).send({ error: "Method Not Allowed" });
 });
 
+
 app.listen(PORT, function () {
-  console.log(`server started at ${PORT}`);
+  console.log(`server started at port ${PORT}`);
 });

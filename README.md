@@ -1,5 +1,5 @@
 # crowdfind-backend
-### CrowdFind that allows users to view, search for, and indicate interest in events
+### CrowdFind  allows users to view, search for, and indicate interest in events
 
 
 # API Documentation
@@ -23,8 +23,11 @@ The API follows RESTful principles and uses JSON for data interchange.
 Register a new user to access authenticated routes.
 
 - Endpoint: `/api/auth/register`
+
 - Method: `POST`
+
 - URL: `base_url/api/auth/register`
+
 - Headers:
 `Content-Type: application/json`
 
@@ -58,10 +61,9 @@ Authenticate a user and obtain a JWT token for authorized requests.
 ```
 
 #### Successful Response:
-
 ```JSON
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdlMTNiODBkZDdkYTEzMzc2ZjUyMSIsImlhdCI6MTcyOTYxODU0OSwiZXhwIjoxNzI5NjIyMTQ5fQ.F5qnEIHNLjZ6Eb31AB5pjdQGo6KO-xWpsYW4GANhQpI"
+    "token": "<your_token_here>"
 }
 ```
 
@@ -82,21 +84,37 @@ Admin-only endpoint to create a new event.
 #### Request Body:
 ```JSON
 {
-"title": "Tech Conference 2024",
-"description": "A conference about the latest in technology.",
-"date": "2024-11-15T09:00:00Z"
+  "title": "Python for Beginners",
+  "hostname": "CodeLab Academy",
+  "description": "A beginner-friendly introduction to Python, focusing on real-world applications and hands-on exercises.",
+  "date": "2024-10-30T17:00:00Z",
+  "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675549/Python_for_Beginners_qi0spd.jpg",
+  "tags": [
+    "Programming",
+    "Python",
+    "Coding"
+  ]
 }
 ```
 
 #### Sample Response:
 ```JSON
 {
-"_id": "671793d96f5288a0eb35c0cc", 
-"title": "Tech Conference 2024", 
-"description": "A conference about the latest in technology.", 
-"date": "2024-11-15T09:00:00.000Z", 
-"attendees": [],
- "__v": 0
+  "title": "Python for Beginners",
+  "description": "A beginner-friendly introduction to Python, focusing on real-world applications and hands-on exercises.",
+  "hostname": "CodeLab Academy",
+  "date": "2024-10-30T17:00:00.000Z",
+  "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675549/Python_for_Beginners_qi0spd.jpg",
+  "tags": [
+    "Programming",
+    "Python",
+    "Coding"
+  ],
+  "_id": "671942181ba408056896c21c",
+  "attendees": [],
+  "createdAt": "2024-10-23T18:36:08.661Z",
+  "updatedAt": "2024-10-23T18:36:08.661Z",
+  "__v": 0
 }
 ```
 
@@ -115,22 +133,54 @@ Retrieve a list of all events.
 #### Sample Response:
 ```JSON
 [
-    {
-        "_id": "671793d96f5288a0eb35c0cc",
-        "title": "Tech Conference 2024",
-        "description": "A conference about the latest in technology.",
-        "date": "2024-11-15T09:00:00.000Z",
-        "attendees": [ { "_id": "user_id_here", "name": "John Doe" } ],
-        "v": 1
-    }, 
-    { 
-        "_id": "another_event_id",
-        "title": "Art Workshop",
-        "description": "A workshop for aspiring artists.",
-        "date": "2024-12-01T14:00:00.000Z",
-        "attendees": [],
-        "v": 0
-    }
+   {
+    "_id": "671941a31ba408056896c21a",
+    "title": "Building Mobile Apps with Flutter",
+    "description": "A hands-on workshop on building cross-platform mobile apps using Flutter, covering both beginner and intermediate techniques.",
+    "hostname": "DevMaster Academy",
+    "date": "2024-11-06T13:00:00.000Z",
+    "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675537/Building_Mobile_Apps_with_Flutter_rgua77.jpg",
+    "tags": [
+      "Mobile Development",
+      "Flutter",
+      "App Design"
+    ],
+    "attendees": [
+      {
+        "name": "John Doe2",
+        "numberOfAttendees": 10
+      },
+      {
+        "numberOfAttendees": 4
+      }
+    ],
+    "createdAt": "2024-10-23T18:34:11.860Z",
+    "updatedAt": "2024-10-23T22:04:52.538Z",
+    "__v": 2,
+    "totalAttendees": 14
+  },
+  {
+    "_id": "671942181ba408056896c21c",
+    "title": "Python for Beginners",
+    "description": "A beginner-friendly introduction to Python, focusing on real-world applications and hands-on exercises.",
+    "hostname": "CodeLab Academy",
+    "date": "2024-10-30T17:00:00.000Z",
+    "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675549/Python_for_Beginners_qi0spd.jpg",
+    "tags": [
+      "Programming",
+      "Python",
+      "Coding"
+    ],
+    "attendees": [
+      {
+        "numberOfAttendees": 3
+      }
+    ],
+    "createdAt": "2024-10-23T18:36:08.661Z",
+    "updatedAt": "2024-10-23T19:24:27.245Z",
+    "__v": 1,
+    "totalAttendees": 3
+  }
 ]
 ```
 
@@ -146,11 +196,19 @@ Allow a user to express interest in a specific event.
 
 - Headers:
 `Content-Type: application/json`
-`Authorization: your token`
+
+`Authorization: <your_token_here>`
 
 ##### Path Parameters:
 eventId: ID of the event to show interest in (e.g., 671793d96f5288a0eb35c0cc)
 eg: POST 'https://crowdfind-backend.onrender.com/api/event/671793d96f5288a0eb35c0cc/interest' \
+
+#### Request Body:
+```JSON
+{
+  "numberOfAttendees": 4
+}
+```
 
 #### Sample Response:
 ```JSON
@@ -167,26 +225,45 @@ Retrieve all events in which the authenticated user has expressed interest.
 - URL: `base_url/api/auth/interested-events`
 
 - Headers:
-`Authorization: your token`
+`Authorization: <your_token_here>`
 
 #### Sample Response:
 ```JSON
 [
-    {
-        "_id": "671793d96f5288a0eb35c0cc",
-        "title": "Tech Conference 2024",
-        "description": "A conference about the latest in technology.",
-        "date": "2024-11-15T09:00:00.000Z",
-        "attendees": [ { "_id": "user_id_here", "name": "John Doe" } ], "v": 1
+  {
+    "event": {
+      "_id": "671942181ba408056896c21c",
+      "title": "Python for Beginners",
+      "description": "A beginner-friendly introduction to Python, focusing on real-world applications and hands-on exercises.",
+      "hostname": "CodeLab Academy",
+      "date": "2024-10-30T17:00:00.000Z",
+      "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675549/Python_for_Beginners_qi0spd.jpg",
+      "tags": [
+        "Programming",
+        "Python",
+        "Coding"
+      ]
     },
-    {
-        "_id": "671793d96f52889b0eb35c0ad",
-        "title": "Art Workshop",
-        "description": "A workshop for aspiring artists.",
-        "date": "2024-12-01T14:00:00.000Z",
-        "attendees": [],
-        "v": 0
-    }
+    "numberOfAttendees": 3,
+    "_id": "67194d6bdd9a28fec1a91a35"
+  },
+  {
+    "event": {
+      "_id": "671941a31ba408056896c21a",
+      "title": "Building Mobile Apps with Flutter",
+      "description": "A hands-on workshop on building cross-platform mobile apps using Flutter, covering both beginner and intermediate techniques.",
+      "hostname": "DevMaster Academy",
+      "date": "2024-11-06T13:00:00.000Z",
+      "img": "https://res.cloudinary.com/dpoitpphx/image/upload/v1729675537/Building_Mobile_Apps_with_Flutter_rgua77.jpg",
+      "tags": [
+        "Mobile Development",
+        "Flutter",
+        "App Design"
+      ]
+    },
+    "numberOfAttendees": 4,
+    "_id": "67197304c381f1ceb2ca925b"
+  }
 ]
 ```
 

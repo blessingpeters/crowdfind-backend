@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+const InterestedEventSchema = new mongoose.Schema({
+    event: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
+    numberOfAttendees: { type: Number, default: 1, min: 1 }
+});
+
 const UserSchema = new mongoose.Schema({
     name: String,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    interestedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
+    interestedEvents: [InterestedEventSchema]
 });
 
 // Hash password before saving
