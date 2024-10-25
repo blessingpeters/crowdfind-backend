@@ -1,11 +1,33 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
 
 // Register User
 exports.register = async (req, res) => {
     const { name, email, password } = req.body;
+     // Validate input fields
+     if (!name || !email || !password) {
+        return res.status(400).json({ message: 'Please provide your credentials.' });
+    }
+
+    // Validate email format
+    if (!validator.isEmail(email)) {
+        return res.status(400).json({ message: 'Please provide a valid email address.' });
+    }
+
+    // Validate password strength (example: minimum 6 characters)
+    if (password.length < 6) {
+        return res.status(400).json({ message: 'Password must be at least 6 characters long.' });
+    }
+
     try {
+        // Check for existing user
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'An account with this email already exists.' });
+        }
+
         const user = new User({ name, email, password });
         await user.save();
         res.status(201).json({ message: 'User registered successfully' });
