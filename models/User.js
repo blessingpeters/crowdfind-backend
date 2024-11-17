@@ -7,11 +7,18 @@ const InterestedEventSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
-    name: String,
-    email: { type: String, required: true, unique: true },
+    name: { type: String, required: true, maxlength: 50 },
+    email: { type: String, required: true, unique: true, maxlength: 100 },
     password: { type: String, required: true },
-    interestedEvents: [InterestedEventSchema]
-});
+    savedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
+    interestedEvents: [InterestedEventSchema],
+    isVerified: { type: Boolean, default: false },
+    verificationToken: { type: String },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
+    profilePicture: { type: String },
+    address: { type: String, maxlength: 200 },
+}, { timestamps: true });
 
 // Hash password before saving
 UserSchema.pre('save', async function (next) {

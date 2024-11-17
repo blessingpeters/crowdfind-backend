@@ -26,12 +26,13 @@ const getAllEvents = async (req, res) => {
         .lean();
 
       const eventsWithAttendeeDetails = events.map(event => {
-        const totalAttendees = event.attendees.reduce((sum, attendee) => sum + attendee.numberOfAttendees, 0);
+          const totalAttendees = event.attendees.reduce((sum, attendee) => sum + (attendee.numberOfAttendees || 0), 0);
 
-        const attendeeDetails = event.attendees.map(attendee => ({
-          name: attendee.user.name,
-          numberOfAttendees: attendee.numberOfAttendees
-        }));
+          // Check if attendees.user exists before accessing user.name
+          const attendeeDetails = event.attendees.map(attendee => ({
+              name: attendee.user ? attendee.user.name : "Unknown User",
+              numberOfAttendees: attendee.numberOfAttendees
+          }));
 
         return {
           ...event,
@@ -39,9 +40,10 @@ const getAllEvents = async (req, res) => {
           attendees: attendeeDetails
         };
       });
-  
+
       res.json(eventsWithAttendeeDetails);
-    } catch (err) {
+  } catch (err) {
+      console.error("Error in getAllEvents:", err.message);
       res.status(500).json({ error: err.message });
     }
 };

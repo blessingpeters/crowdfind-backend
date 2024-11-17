@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const eventRouter = require("./routes/events.route");
 const authRouter = require("./routes/auth.route");
-const port = 3000;
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || port;
 
@@ -18,23 +18,27 @@ mongoose
     console.error("Error connecting to MongoDB:", err.message);
     process.exit(1);
   });
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+// Serve static files for profile pictures
+app.use('/uploads/profile_pictures', express.static(path.join(__dirname, 'uploads/profile_pictures')));
+
+// Routes
 app.use("/api/event", eventRouter);
 app.use("/api/auth", authRouter);
 
 // Welcome Route
 app.get("/", (req, res) => {
     res.send("Welcome to Crowd Find API");
-  });
-
-app.all("*", (req, res) => {
-res.status(405).send({ error: "Method Not Allowed" });
 });
 
+app.all("*", (req, res) => {
+    res.status(405).send({ error: "Method Not Allowed" });
+});
 
 app.listen(PORT, function () {
-  console.log(`server started at port ${PORT}`);
+    console.log(`Server started at port ${PORT}`);
 });
