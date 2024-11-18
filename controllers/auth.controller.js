@@ -93,12 +93,17 @@ exports.verifyEmail = async (req, res) => {
         user.verificationToken = undefined; // Remove the token
         await user.save();
 
-        res.status(200).json({ message: 'Email verified successfully. You can now log in.' });
+        // res.status(200).json({ message: 'Email verified successfully. You can now log in.' });
+
+        // Redirect to the frontend verification success page
+        // return res.redirect(`${process.env.CLIENT_URL}/email-verified`);'
+        res.redirect("/verification-success.html");
     } catch (err) {
         console.error('Error in email verification:', err.message);
         res.status(500).json({ error: err.message });
     }
 };
+
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
 

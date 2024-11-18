@@ -23,8 +23,8 @@ mongoose
 app.use(cors());
 app.use(express.json());
 
-// Serve static files for profile pictures
-app.use('/uploads/profile_pictures', express.static(path.join(__dirname, 'uploads/profile_pictures')));
+// Serve static files email verification
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/api/event", eventRouter);
