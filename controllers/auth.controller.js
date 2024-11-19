@@ -48,9 +48,8 @@ exports.register = async (req, res) => {
             <p>Please verify your email by clicking the link below:</p>
             <a href="${verificationUrl}">Verify Email</a>
             <p>If you did not request this, please ignore this email.</p>
-            <p>or copy and paste the url in your browser
+            <p>or copy and paste this url in your browser
             <a href="${verificationUrl}">${verificationUrl}</a>
-
         `;
 
         await sendEmail({
