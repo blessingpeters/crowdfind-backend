@@ -48,6 +48,9 @@ exports.register = async (req, res) => {
             <p>Please verify your email by clicking the link below:</p>
             <a href="${verificationUrl}">Verify Email</a>
             <p>If you did not request this, please ignore this email.</p>
+            <p>or copy and paste the url in your browser
+            <a href="${verificationUrl}">${verificationUrl}</a>
+
         `;
 
         await sendEmail({
@@ -98,6 +101,8 @@ exports.verifyEmail = async (req, res) => {
         // Redirect to the frontend verification success page
         // return res.redirect(`${process.env.CLIENT_URL}/email-verified`);'
         res.redirect("/verification-success.html");
+        console.log( res.status(200).json({ message: 'Email verified successfully. You can now log in.' }))
+
     } catch (err) {
         console.error('Error in email verification:', err.message);
         res.status(500).json({ error: err.message });
