@@ -100,7 +100,7 @@ exports.verifyEmail = async (req, res) => {
         // Redirect to the frontend verification success page
         // return res.redirect(`${process.env.CLIENT_URL}/email-verified`);'
         res.redirect("/verification-success.html");
-        console.log( res.status(200).json({ message: 'Email verified successfully. You can now log in.' }))
+        // console.log( res.status(200).json({ message: 'Email verified successfully. You can now log in.' }))
 
     } catch (err) {
         console.error('Error in email verification:', err.message);
