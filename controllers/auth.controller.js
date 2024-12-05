@@ -59,7 +59,10 @@ exports.register = async (req, res) => {
             <h4 style="font-family: Arial, sans-serif; color: #555;">Hello ${user.name},</h4>
             <p style="font-family: Arial, sans-serif; color: #555;">Please verify your email by clicking the link below:</p>
             <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; background-color: #F65722; color: white; text-decoration: none; border-radius: 5px;" >Verify Email</a>
-            <p style="font-family: Arial, sans-serif; color: #555;">If you did not request this, please ignore this email.</p>
+            <p style="font-family: Arial, sans-serif; color: #555;">If you did not request this, please ignore this email.</p> <br/>
+
+            <p style="font-family: Arial, sans-serif; color: #555;">Or copy and paste the link below into your browser</p>
+            <a href="${verificationUrl}">${verificationUrl}</a>
         `;
 
         await sendEmail({
