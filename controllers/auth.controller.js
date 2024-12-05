@@ -39,35 +39,33 @@ exports.register = async (req, res) => {
         const user = new User({ name, email, password, verificationToken });
         await user.save();
 
+        // Send welcome email
+        const welcomeEmail = `
+         <h1 style="color: #F65722;">Welcome to Crowd Find!</h1>
+         <h3>Thank you for registering. Please verify your email to access your dashboard.</h3>
+     `;
+
+        await sendEmail({
+            to: user.email,
+            subject: "Welcome to Crowd Find!",
+            html: welcomeEmail,
+        });
+
         // Send verification email
         const verificationUrl = `${process.env.CLIENT_URL}/api/auth/verify-email?token=${verificationToken}`;
 
         const verificationEmail = `
-            <h1>Email Verification</h1>
-            <p>Hello ${user.name},</p>
-            <p>Please verify your email by clicking the link below:</p>
-            <a href="${verificationUrl}">Verify Email</a>
-            <p>If you did not request this, please ignore this email.</p>
-            <p>or copy and paste this url in your browser
-            <a href="${verificationUrl}">${verificationUrl}</a>
+            <h1 style="font-family: Arial, sans-serif; color: #F65722;">Email Verification</h1>
+            <h4 style="font-family: Arial, sans-serif; color: #555;">Hello ${user.name},</h4>
+            <p style="font-family: Arial, sans-serif; color: #555;">Please verify your email by clicking the link below:</p>
+            <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; background-color: #F65722; color: white; text-decoration: none; border-radius: 5px;" >Verify Email</a>
+            <p style="font-family: Arial, sans-serif; color: #555;">If you did not request this, please ignore this email.</p>
         `;
 
         await sendEmail({
             to: user.email,
             subject: 'Verify Your Email',
             html: verificationEmail,
-        });
-
-        // Send welcome email
-        const welcomeEmail = `
-            <h1>Welcome to Crowd Find!</h1>
-            <p>Thank you for registering. Please verify your email to access your dashboard.</p>
-        `;
-
-        await sendEmail({
-            to: user.email,
-            subject: 'Welcome to Crowd Find!',
-            html: welcomeEmail,
         });
 
         res.status(201).json({ message: 'User registered successfully. Please check your email to verify your account.' });
@@ -87,9 +85,11 @@ exports.verifyEmail = async (req, res) => {
         // Find user with the verification token
         const user = await User.findOne({ verificationToken: token });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid token or user already verified.' });
+            return res.redirect(`/verification.html`);
         }
-
+        if (user.isVerified) {
+            return res.redirect(`/verification.html`);
+        }
         // Update user verification status
         user.isVerified = true;
         user.verificationToken = undefined; // Remove the token
@@ -99,7 +99,7 @@ exports.verifyEmail = async (req, res) => {
 
         // Redirect to the frontend verification success page
         // return res.redirect(`${process.env.CLIENT_URL}/email-verified`);'
-        res.redirect("/verification-success.html");
+        res.redirect(`${process.env.FRONTEND_URL}/emailverification`);
         // console.log( res.status(200).json({ message: 'Email verified successfully. You can now log in.' }))
 
     } catch (err) {
